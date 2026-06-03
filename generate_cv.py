@@ -63,6 +63,8 @@ ROLES = {
     }
 }
 
+FOTO_PATH = os.path.expanduser("~/.config/fenix/foto.jpg")
+
 def generate_cv(role="default"):
     profile = load_profile()
     role_data = ROLES.get(role, ROLES["default"])
@@ -76,19 +78,24 @@ def generate_cv(role="default"):
     # Header
     pdf.set_fill_color(*DARK)
     pdf.rect(0, 0, 210, 50, 'F')
+
+    # Foto circulo a la derecha
+    if os.path.exists(FOTO_PATH):
+        pdf.image(FOTO_PATH, x=168, y=5, w=40, h=40, type='', link='')
+
     pdf.set_text_color(255, 255, 255)
-    pdf.set_font('Helvetica', 'B', 24)
-    pdf.set_xy(20, 10)
+    pdf.set_font('Helvetica', 'B', 22)
+    pdf.set_xy(20, 8)
     pdf.cell(0, 10, 'LUIS TRICHE')
-    pdf.set_font('Helvetica', '', 12)
+    pdf.set_font('Helvetica', '', 11)
     pdf.set_text_color(*PRIMARY)
-    pdf.set_xy(20, 22)
+    pdf.set_xy(20, 20)
     pdf.cell(0, 8, title)
     pdf.set_text_color(200, 200, 200)
     pdf.set_font('Helvetica', '', 9)
-    pdf.set_xy(20, 33)
+    pdf.set_xy(20, 31)
     pdf.cell(0, 5, f"{profile['location']}  |  {profile['email']}  |  linkedin.com/in/luistriche")
-    pdf.set_xy(20, 39)
+    pdf.set_xy(20, 37)
     pdf.cell(0, 5, 'GitHub: github.com/luistriche')
 
     y = 62
